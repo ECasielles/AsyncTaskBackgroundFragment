@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AsyncTaskBackground</string>
+    <string name="btnSort">Ordenar</string>
+    <string name="btnCancel">Cancelar</string>
+</resources>
