@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-
 public class HiddenFragment extends Fragment {
 
     public static final String TAG = "HiddenFragment";
-    private static final int MAX_LENGTH = 1000;
-    private int[] numbers = new int[MAX_LENGTH];
     private TaskCallBacks callback;
     private ProgressBarTask progressBarTask;
+    public static final int MAX_LENGTH = 1000;
+    public static int[] numbers = new int[MAX_LENGTH];
+    int maxMovimientos = (numbers.length * (numbers.length - 1)) / 2;
+    private int[] arrayState;
+    private int progressState;
+    private int movimientos = 1;
 
     @Override
     public void onAttach(Activity activity) {
@@ -29,14 +32,19 @@ public class HiddenFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        //Se inicia la tarea
+    }
+
+    public ProgressBarTask getProgressBarTask() {
+        return progressBarTask;
+    }
+
+    public void startTask() {
         progressBarTask = new ProgressBarTask();
         progressBarTask.execute();
     }
     public void cancelTask(){
         progressBarTask.cancel(true);
     }
-
 
     public class ProgressBarTask extends AsyncTask<Void, Integer, Void> {
 
@@ -51,8 +59,6 @@ public class HiddenFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             //Si no se cancela la operación se actualizará la barra de progreso
-            int maxMovimientos = (numbers.length * (numbers.length - 1)) / 2;
-            int movimientos = 1;
             for (int i = 0; i < numbers.length; i++)
                 for (int j = 1; j < (numbers.length - i); j++) {
                     publishProgress((int) ((100 * movimientos++)/ (float) maxMovimientos));
@@ -89,6 +95,7 @@ public class HiddenFragment extends Fragment {
         }
 
         private void generateNumbers() {
+            movimientos = 1;
             for (int i = 0; i < numbers.length; i++)
                 numbers[i] = (int) Math.floor(Math.random() * MAX_LENGTH);
         }
