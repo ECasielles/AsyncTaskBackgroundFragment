@@ -78,7 +78,7 @@ public class HiddenFragment extends Fragment {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             if(callback != null)
-                callback.onProgressUpdate();
+                callback.onProgressUpdate(values);
         }
 
         @Override

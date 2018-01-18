@@ -19,7 +19,6 @@ public class HiddenActivity extends AppCompatActivity implements TaskCallBacks {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hidden);
-
         txvMessage = findViewById(R.id.txvMessage);
         btnCancel = findViewById(R.id.btnCancel);
         btnSort = findViewById(R.id.btnSort);
